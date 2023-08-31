@@ -29,7 +29,8 @@ void Renderer::Render()
 
 void Renderer::AddShape(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
 {
-    this->vertices = vertices, this->indices = indices;
+    this->vertices.insert(this->vertices.end(), vertices.begin(), vertices.end());
+    this->indices.insert(this->indices.end(), indices.begin(), indices.end());
 
     glBindVertexArray(VAO);
 

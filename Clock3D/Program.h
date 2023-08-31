@@ -27,6 +27,9 @@ public:
 
 private:
 
+	// objects
+	std::vector<Shape*> parGrid;
+
 	// settings
 	int width, height, action;
 	float angleDif = 0, angleDifSpeed = 30.0f;

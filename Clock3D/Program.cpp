@@ -14,8 +14,15 @@ void Program::Init()
 	projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 8000.0f);
 
 	// init figures
-	figurePar = new Parallelepiped(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.0f, 2.0f, 4.0f, 2.0f);
-	renderer->AddShape(figurePar->GetVertices(), figurePar->GetIndices());
+	for (int i = 0; i < 5; ++i)
+	{
+		for (int j = 0; j < 10; ++j)
+		{
+			figurePar = new Parallelepiped(glm::vec3(j, i, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.0f, 0.5f, 1.0f, 0.5f);
+			renderer->AddShape(figurePar->GetVertices(), figurePar->GetIndices());
+			parGrid.push_back(figurePar);
+		}
+	}
 }
 
 void Program::ProcessInput(float dt)
@@ -30,7 +37,10 @@ void Program::Update(float dt)
 
 void Program::Render(float dt)
 {
-	DrawShape(figurePar, dt);
+	for (auto& it : parGrid)
+	{
+		DrawShape(it, dt);
+	}
 }
 
 void Program::DrawShape(Shape* shape, float dt)
@@ -42,7 +52,7 @@ void Program::DrawShape(Shape* shape, float dt)
 	shapeShader.SetMatrix4("view", view);
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, shape->GetPos()); 
+	model = glm::translate(model, shape->GetPos() - glm::vec3(4.5f, 2.0f, 0.0f)); 
 	model = glm::rotate(model, glm::radians(shape->GetAngle() + angleDif), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = glm::scale(model, shape->GetScale());	
 

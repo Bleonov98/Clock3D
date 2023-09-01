@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "Shape.h"
 #include "Parallelepiped.h"
+#include "Cylinder.h"
 #include "Camera.h"
 
 class Program
@@ -28,7 +29,6 @@ public:
 private:
 
 	// objects
-	std::vector<Shape*> parGrid;
 
 	// settings
 	int width, height, action;

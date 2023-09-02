@@ -13,3 +13,8 @@ void Shape::SetTriangle(unsigned int first, unsigned int second, unsigned int th
 	shapeIndices.push_back(second);
 	shapeIndices.push_back(third);
 }
+
+void Shape::Draw()
+{
+	mesh.Render();
+}

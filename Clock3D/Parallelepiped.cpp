@@ -40,5 +40,6 @@ void Parallelepiped::SetShape()
 	// bot triangles
 	SetTriangle(0, 4, 7);
 	SetTriangle(0, 3, 7);
-	
+
+	mesh.AddShape(shapeVertices, shapeIndices);
 }

@@ -84,6 +84,8 @@ void Cylinder::SetShape()
             SetTriangle(topCenterIndex, k, topCenterIndex + 1);
         }
     }
+
+    mesh.AddShape(shapeVertices, shapeIndices);
 }
 
 // generate a unit circle on XY-plane

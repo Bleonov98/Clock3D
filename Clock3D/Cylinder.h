@@ -7,7 +7,9 @@ class Cylinder : public Shape
 {
 public:
 
-	Cylinder(glm::vec3 position, glm::vec3 scale, float angle, float radius, float height, int sectorsNum) : Shape(position, scale, angle) {
+	Cylinder(glm::vec3 position, glm::vec3 scale, float angle, float radius, float height, int sectorsNum, glm::vec3 color = glm::vec3(0.5f, 0.0f, 0.0f))
+		: Shape(position, scale, angle, color) 
+	{
 		this->radius = radius, this->height = height, this->sectorsNum = sectorsNum;
 	};
 

@@ -2,6 +2,8 @@
 #define PROGRAM_H
 
 #include <iostream>
+
+
 #include "Renderer.h"
 #include "Shape.h"
 #include "Parallelepiped.h"
@@ -24,16 +26,21 @@ public:
 	void Render(float dt);
 	void DrawShape(Shape* shape, float dt);
 
+	void SetTime();
+
 	bool Keys[1024], KeysProcessed[1024];
 
 private:
 
 	// objects
+	Shader shapeShader;
 
 	// settings
 	int width, height, action;
-	float angleDif = 0, angleDifSpeed = 30.0f;
-	Shader shapeShader;
+
+	// hands, time
+	float yAxisGeneral = 90.0f, yAxisStep = 30.0f, handStep = 360.0f / 60.0f, hourStep = 360.0f / 12.0f;
+	float seconds, minutes, hours;
 
 	// view/projection transformations
 	glm::mat4 projection;

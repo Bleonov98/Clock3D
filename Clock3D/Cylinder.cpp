@@ -7,15 +7,13 @@ void Cylinder::SetShape()
     // side vertices
     for (int i = 0; i < 2; ++i)
     {
-        float h = -height / 2.0f + i * height;           // z value; -h/2 to h/2
-        float t = 1.0f - i;                              // vertical tex coord; 1 to 0
+        float h = i * height;
 
         for (int j = 0, k = 0; j <= sectorsNum; ++j, ++k)
         {
             float ux = unitVertices[k].x;
             float uy = unitVertices[k].y;
             float uz = unitVertices[k].z;
-
 
             // position vector
             SetVertex(glm::vec3(ux * radius, uy * radius, h));
@@ -29,8 +27,7 @@ void Cylinder::SetShape()
     // put base and top vertices to arrays
     for (int i = 0; i < 2; ++i)
     {
-        float h = -height / 2.0f + i * height;           // z value; -h/2 to h/2
-        float nz = -1 + i * 2;                           // z value of normal; -1 to 1
+        float h = i * height;           // z value; -h/2 to h/2
 
         // center point
         SetVertex(glm::vec3(0, 0, h));

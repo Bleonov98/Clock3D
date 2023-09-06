@@ -14,8 +14,12 @@ Renderer::Renderer()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
+    // vertices
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glEnableVertexAttribArray(0);
+
+    // normals
+
 
     glBindVertexArray(0);
 }
@@ -44,6 +48,21 @@ void Renderer::AddShape(std::vector<Vertex> vertices, std::vector<unsigned int> 
     glEnableVertexAttribArray(0);
 
     glBindVertexArray(0);
+}
+
+void Renderer::LoadShapeFromFile(const char* fileName)
+{
+    std::string filePath("../models/");
+    filePath += fileName;
+
+    std::ifstream iStream(filePath);
+
+    if (!iStream.is_open()) {
+        std::cout << "File wasn't opened\n" << "Renderer.cpp, Line: 60;";
+        return;
+    }
+    
+
 }
 
 Renderer::~Renderer()

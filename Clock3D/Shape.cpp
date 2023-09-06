@@ -14,6 +14,11 @@ void Shape::SetTriangle(unsigned int first, unsigned int second, unsigned int th
 	shapeIndices.push_back(third);
 }
 
+void Shape::LoadShape(const char* fileName)
+{
+	mesh.LoadShapeFromFile(fileName);
+}
+
 void Shape::Draw()
 {
 	mesh.Render();

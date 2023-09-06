@@ -43,9 +43,9 @@ int main() {
 
     gladLoadGL();
 
-    glEnable(GL_DEPTH_TEST);
-
     clockProgram.Init();
+
+    glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window))
     {

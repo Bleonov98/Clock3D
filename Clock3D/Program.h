@@ -1,14 +1,18 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
+// Std
 #include <iostream>
 
-
-#include "Renderer.h"
+// Objects
 #include "Shape.h"
 #include "Parallelepiped.h"
 #include "Cylinder.h"
+#include "Number.h"
+
+// Tools
 #include "Camera.h"
+#include "Renderer.h"
 
 class Program
 {
@@ -39,7 +43,7 @@ private:
 	int width, height, action;
 
 	// hands, time
-	float yAxisGeneral = 90.0f, yAxisStep = 30.0f, handStep = 360.0f / 60.0f, hourStep = 360.0f / 12.0f;
+	float yAxisGeneral = 0.0f, yAxisStep = 30.0f, handStep = 360.0f / 60.0f, hourStep = 360.0f / 12.0f;
 	float seconds, minutes, hours;
 
 	// view/projection transformations

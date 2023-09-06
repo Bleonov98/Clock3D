@@ -17,6 +17,7 @@ public:
 
     void Render();
     void AddShape(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+    void LoadShapeFromFile(const char* fileName);
 
     ~Renderer();
 

@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Number.h" />
     <ClInclude Include="Parallelepiped.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="Renderer.h" />

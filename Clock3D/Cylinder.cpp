@@ -16,12 +16,12 @@ void Cylinder::SetShape()
             float uz = unitVertices[k].z;
 
             // position vector
-            SetVertex(glm::vec3(ux * radius, uy * radius, h));
+            SetVertex(position + glm::vec3(ux * radius, uy * radius, h));
         }
     }
 
     // the starting index for the base/top surface
-    int baseCenterIndex = (int)shapeVertices.size() / 3;
+    int baseCenterIndex = 0;
     int topCenterIndex = baseCenterIndex + sectorsNum + 1; // include center vertex
 
     // put base and top vertices to arrays
@@ -30,15 +30,7 @@ void Cylinder::SetShape()
         float h = i * height;           // z value; -h/2 to h/2
 
         // center point
-        SetVertex(glm::vec3(0, 0, h));
-
-        for (int j = 0, k = 0; j < sectorsNum; ++j, ++k)
-        {
-            float ux = unitVertices[k].x;
-            float uy = unitVertices[k].y;
-            // position vector
-            SetVertex(glm::vec3(ux * radius, uy * radius, h));
-        }
+        SetVertex(glm::vec3(position.x, position.y, position.z + h));
     }
 
     // Triangles
@@ -96,7 +88,7 @@ std::vector<glm::vec3> Cylinder::getUnitCircleVertices()
     for (int i = 0; i <= sectorsNum; ++i)
     {
         sectorAngle = i * sectorStep;
-        unitCircleVertices.push_back(glm::vec3(cos(sectorAngle), sin(sectorAngle), 0));
+        unitCircleVertices.push_back(position + glm::vec3(cos(sectorAngle), sin(sectorAngle), 0));
     }
 
     return unitCircleVertices;

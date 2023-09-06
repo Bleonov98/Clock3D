@@ -1,10 +1,13 @@
 #include "Program.h"
 
 Camera camera;
-Parallelepiped* base;
+
+Cylinder* base;
 Cylinder* secondHand;
 Cylinder* minuteHand;
 Cylinder* hourHand;
+
+Number* twelve;
 
 void Program::Init()
 {
@@ -12,20 +15,23 @@ void Program::Init()
 	shapeShader.LoadShader("vShader.vx", "fShader.ft");
 
 	// init matrices
-	projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 8000.0f);
+	projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 2000.0f);
 
 	// init figures
-	base = new Parallelepiped(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.0f, 0.5f, 1.0f, 0.5f);
+	base = new Cylinder(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), 0.2f, 1.25f, 16);
 	base->SetShape();
 	
-	secondHand = new Cylinder(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.0f, 0.2f, 3.0f, 16, glm::vec3(0.5f, 0.9f, 0.9f));
+	secondHand = new Cylinder(glm::vec3(-0.3f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 2.0f, 16, glm::vec3(0.2f, 0.2f, 0.2f));
 	secondHand->SetShape();
 
-	minuteHand = new Cylinder(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), 0.0f, 0.2f, 2.5f, 16, glm::vec3(0.0f, 0.5f, 0.5f));
+	minuteHand = new Cylinder(glm::vec3(-0.2f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 1.5f, 16, glm::vec3(0.0f, 0.2f, 0.2f));
 	minuteHand->SetShape();
 
-	hourHand = new Cylinder(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(1.0f, 1.0f, 1.0f), 0.0f, 0.2f, 1.0f, 16, glm::vec3(0.5f, 0.5f, 0.0f));
+	hourHand = new Cylinder(glm::vec3(-0.1f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 1.0f, 16, glm::vec3(0.5f, 0.5f, 0.0f));
 	hourHand->SetShape();
+
+	twelve = new Number(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), "12.obj");
+	twelve->SetShape();
 }
 
 void Program::ProcessInput(float dt)
@@ -38,19 +44,22 @@ void Program::Update(float dt)
 {
 	SetTime();
 
-	secondHand->SetAngle(handStep * seconds);
-	minuteHand->SetAngle(handStep * minutes);
+	secondHand->SetXAngle(handStep * seconds);
+	minuteHand->SetXAngle(handStep * minutes);
 
 	if (hours > 12.0f) hours -= 12.0f;
-	hourHand->SetAngle(hourStep * hours);
+	hourHand->SetXAngle(hourStep * hours);
 }
 
 void Program::Render(float dt)
 {
-	DrawShape(base, dt);
+	// hands
 	DrawShape(secondHand, dt);
 	DrawShape(minuteHand, dt);
 	DrawShape(hourHand, dt);
+
+	// details
+	DrawShape(base, dt);
 }
 
 void Program::DrawShape(Shape* shape, float dt)
@@ -64,9 +73,10 @@ void Program::DrawShape(Shape* shape, float dt)
 	shapeShader.SetVector3f("color", shape->GetColor());
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, shape->GetPos()); 
-	model = glm::rotate(model, glm::radians(yAxisGeneral), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(shape->GetAngle() - 90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+	model = glm::rotate(model, glm::radians(yAxisGeneral + shape->GetYAngle()), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(shape->GetXAngle() - 90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::translate(model, shape->GetPos());
 	model = glm::scale(model, shape->GetScale());	
 
 	shapeShader.SetMatrix4("model", model);

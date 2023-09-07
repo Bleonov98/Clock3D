@@ -11,7 +11,7 @@ public:
 		this->fileName = fileName;
 	};
 
-	void SetShape() override { LoadShape(fileName);  }
+	void SetShape() override { LoadShapeFromFile(fileName);  }
 
 private:
 

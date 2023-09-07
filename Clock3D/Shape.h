@@ -20,7 +20,6 @@ public:
 	void SetTriangle(unsigned int first, unsigned int second, unsigned int third);
 
 	virtual void SetShape() = 0;
-	virtual void LoadShape(const char* fileName);
 
 	void Draw();
 
@@ -44,6 +43,9 @@ public:
 
 	std::vector<Vertex> GetVertices() { return shapeVertices; }
 	std::vector<unsigned int> GetIndices() { return shapeIndices; }
+
+	glm::vec3 GetVertexFromStringStream(std::istringstream& str);
+	void LoadShapeFromFile(const char* fileName);
 
 protected:
 

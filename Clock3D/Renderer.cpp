@@ -50,21 +50,6 @@ void Renderer::AddShape(std::vector<Vertex> vertices, std::vector<unsigned int> 
     glBindVertexArray(0);
 }
 
-void Renderer::LoadShapeFromFile(const char* fileName)
-{
-    std::string filePath("../models/");
-    filePath += fileName;
-
-    std::ifstream iStream(filePath);
-
-    if (!iStream.is_open()) {
-        std::cout << "File wasn't opened\n" << "Renderer.cpp, Line: 60;";
-        return;
-    }
-    
-
-}
-
 Renderer::~Renderer()
 {
     glDeleteVertexArrays(1, &VAO);

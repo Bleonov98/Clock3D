@@ -18,7 +18,7 @@ void Program::Init()
 	projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 2000.0f);
 
 	// init figures
-	base = new Cylinder(glm::vec3(0.0f, 0.0f, -0.1f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), 0.2f, 1.25f, 16);
+	base = new Cylinder(glm::vec3(0.0f, 0.0f, 0.04f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), 0.2f, 0.7f, 16);
 	base->SetShape();
 	
 	secondHand = new Cylinder(glm::vec3(-0.3f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 2.0f, 16, glm::vec3(0.2f, 0.2f, 0.2f));
@@ -57,6 +57,9 @@ void Program::Render(float dt)
 	DrawShape(secondHand, dt);
 	DrawShape(minuteHand, dt);
 	DrawShape(hourHand, dt);
+
+	// nums
+	DrawShape(twelve, dt);
 
 	// details
 	DrawShape(base, dt);

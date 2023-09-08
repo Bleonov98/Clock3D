@@ -11,7 +11,7 @@ class Shape
 {
 public:
 
-	Shape(glm::vec3 position, glm::vec3 scale, glm::vec3 angles, glm::vec3 color = glm::vec3(0.5f, 0.0f, 0.0f)) {
+	Shape(glm::vec3 position, glm::vec3 scale, glm::vec3 angles, glm::vec3 color = glm::vec3(0.0f, 0.0f, 0.5f)) {
 		this->position = position, this->scale = scale;
 		this->xAngle = angles.x, this->yAngle = angles.y, this->zAngle = angles.z;
 		this->color = color;

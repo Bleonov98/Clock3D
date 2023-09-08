@@ -35,11 +35,16 @@ void Shape::LoadShapeFromFile(const char* fileName)
     std::string filePath("../models/");
     filePath += fileName;
 
-    std::ifstream iStream(fileName);
+    std::ifstream iStream(filePath);
 
     if (!iStream.is_open()) {
-        std::cout << "Object file wasn't opened";
-        return;
+
+        iStream.open(fileName);
+        if (!iStream.is_open()) {
+            std::cout << "Object file wasn't opened";
+            return;
+        }
+
     }
 
     std::string line;
@@ -74,18 +79,23 @@ void Shape::LoadShapeFromFile(const char* fileName)
             }
             
             std::istringstream v(str);
+            std::vector<GLuint> face;
 
             for (int i = 0; i < indexCnt; ++i)
             {
-                GLuint a, b, c;
+                GLuint vx, vt, vn;
 
-                v >> a >> b >> c;
+                v >> vx >> vt >> vn;
 
-                shapeIndices.push_back(a);
-                shapeIndices.push_back(b);
-                shapeIndices.push_back(c);
+                vx--;
+                face.push_back(vx);
             }
-            
+
+            if (indexCnt == 3) SetTriangle(face[0], face[1], face[2]);
+            else if (indexCnt == 4) {
+                SetTriangle(face[0], face[1], face[2]);
+                SetTriangle(face[0], face[2], face[3]);
+            }
         }
 
     }

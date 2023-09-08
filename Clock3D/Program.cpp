@@ -8,6 +8,9 @@ Cylinder* minuteHand;
 Cylinder* hourHand;
 
 Number* twelve;
+Number* three;
+Number* six;
+Number* nine;
 
 void Program::Init()
 {
@@ -30,8 +33,17 @@ void Program::Init()
 	hourHand = new Cylinder(glm::vec3(-0.1f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 1.0f, 16, glm::vec3(0.5f, 0.5f, 0.0f));
 	hourHand->SetShape();
 
-	twelve = new Number(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), "12.obj");
+	twelve = new Number(glm::vec3(0.0f, 1.5f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "12.obj");
 	twelve->SetShape();
+
+	three = new Number(glm::vec3(1.5f, -0.2f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "3.obj");
+	three->SetShape();
+
+	six = new Number(glm::vec3(0.0f, -1.5f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "6.obj");
+	six->SetShape();
+
+	nine = new Number(glm::vec3(-1.5f, -0.2f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "9.obj");
+	nine->SetShape();
 }
 
 void Program::ProcessInput(float dt)
@@ -60,6 +72,9 @@ void Program::Render(float dt)
 
 	// nums
 	DrawShape(twelve, dt);
+	DrawShape(three, dt);
+	DrawShape(six, dt);
+	DrawShape(nine, dt);
 
 	// details
 	DrawShape(base, dt);

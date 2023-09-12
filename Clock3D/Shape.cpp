@@ -54,12 +54,7 @@ void Shape::LoadShapeFromFile(const char* fileName)
         if (line.substr(0, 2) == "v ") {
 
             std::istringstream v(line.substr(2));
-
-            glm::vec3 vert = GetVertexFromStringStream(v);
-
-            Vertex vertex;
-            vertex.Position = vert;
-            shapeVertices.push_back(vertex);
+            SetVertex(GetVertexFromStringStream(v));
         }
         else if (line.substr(0, 2) == "f ") {
 

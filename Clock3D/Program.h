@@ -33,6 +33,7 @@ public:
 	void SetTime();
 
 	bool Keys[1024], KeysProcessed[1024];
+	float yAxisGeneral = 0.0f;
 
 private:
 
@@ -43,7 +44,7 @@ private:
 	int width, height, action;
 
 	// hands, time
-	float yAxisGeneral = 0.0f, yAxisStep = 30.0f, handStep = 360.0f / 60.0f, hourStep = 360.0f / 12.0f;
+	float yAxisStep = 30.0f, handStep = 360.0f / 60.0f, hourStep = 360.0f / 12.0f;
 	float seconds, minutes, hours;
 
 	// view/projection transformations

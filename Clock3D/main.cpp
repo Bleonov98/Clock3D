@@ -10,6 +10,7 @@
 // input
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 // settings
 const unsigned int SCR_WIDTH = 1280;
@@ -18,6 +19,9 @@ const unsigned int SCR_HEIGHT = 720;
 // timing
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
+
+// mouse
+double lastX;
 
 // Program
 Program clockProgram(SCR_WIDTH, SCR_HEIGHT);
@@ -40,6 +44,8 @@ int main() {
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetKeyCallback(window, key_callback);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window, mouse_callback);
 
     gladLoadGL();
 
@@ -91,4 +97,18 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         else if (action == GLFW_RELEASE)
             clockProgram.Keys[key] = false;
     }
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
+    {
+        return;
+    }
+    
+    float deltaX = lastX - xpos;
+    lastX = xpos;
+
+    if (deltaX > 0) clockProgram.yAxisGeneral -= 1.5f;
+    else clockProgram.yAxisGeneral += 1.5f;
 }

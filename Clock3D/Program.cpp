@@ -2,6 +2,8 @@
 
 Camera camera;
 
+Light light;
+
 Cylinder* base;
 Cylinder* secondHand;
 Cylinder* minuteHand;
@@ -16,33 +18,34 @@ void Program::Init()
 {
 	// init render tools
 	shapeShader.LoadShader("vShader.vx", "fShader.ft");
+	light.SetPosition(glm::vec3(2.0f, 0.0f, 1.0f));
 
 	// init matrices
 	projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 2000.0f);
 
 	// init figures
-	base = new Cylinder(glm::vec3(0.0f, 0.0f, 0.04f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), 0.2f, 0.7f, 16);
+	base = new Cylinder(glm::vec3(0.0f, 0.0f, 0.04f), glm::vec3(1.0f), glm::vec3(90.0f, 0.0f, 0.0f), 0.2f, 0.7f, 16);
 	base->SetShape();
 	
-	secondHand = new Cylinder(glm::vec3(-0.3f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 2.0f, 16, glm::vec3(0.5f, 0.0f, 0.0f));
+	secondHand = new Cylinder(glm::vec3(-0.3f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 1.8f, 16, glm::vec3(0.5f, 0.0f, 0.0f));
 	secondHand->SetShape();
 
-	minuteHand = new Cylinder(glm::vec3(-0.2f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 1.5f, 16, glm::vec3(0.0f, 0.25f, 0.2f));
+	minuteHand = new Cylinder(glm::vec3(-0.2f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 1.5f, 16, glm::vec3(0.0f, 0.25f, 0.2f));
 	minuteHand->SetShape();
 
-	hourHand = new Cylinder(glm::vec3(-0.1f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 1.0f, 16);
+	hourHand = new Cylinder(glm::vec3(-0.1f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f, 90.0f, 0.0f), 0.075f, 1.0f, 16);
 	hourHand->SetShape();
 
-	twelve = new Number(glm::vec3(0.0f, 1.5f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "12.obj");
+	twelve = new Number(glm::vec3(0.0f, 1.5f, 0.65f), glm::vec3(1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "12.obj");
 	twelve->SetShape();
 
-	three = new Number(glm::vec3(1.5f, -0.2f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "3.obj");
+	three = new Number(glm::vec3(1.5f, -0.2f, 0.65f), glm::vec3(1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "3.obj");
 	three->SetShape();
 
-	six = new Number(glm::vec3(0.0f, -1.5f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "6.obj");
+	six = new Number(glm::vec3(0.0f, -1.5f, 0.65f), glm::vec3(1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "6.obj");
 	six->SetShape();
 
-	nine = new Number(glm::vec3(-1.5f, -0.2f, 0.65f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "9.obj");
+	nine = new Number(glm::vec3(-1.5f, -0.2f, 0.65f), glm::vec3(1.0f), glm::vec3(90.0f, 0.0f, 0.0f), "9.obj");
 	nine->SetShape();
 }
 
@@ -88,7 +91,10 @@ void Program::DrawShape(Shape* shape, float dt)
 	view = camera.GetViewMatrix();
 	shapeShader.SetMatrix4("view", view);
 
-	shapeShader.SetVector3f("color", shape->GetColor());
+	shapeShader.SetVector3f("objectColor", shape->GetColor());
+	shapeShader.SetVector3f("lightColor", light.GetColor());
+	shapeShader.SetVector3f("lightPos", light.GetPosition());
+	shapeShader.SetVector3f("viewPos", camera.GetCameraPosition());
 
 	glm::mat4 model = glm::mat4(1.0f);
 

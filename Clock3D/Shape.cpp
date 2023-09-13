@@ -3,7 +3,7 @@
 void Shape::SetVertex(glm::vec3 position)
 {
 	Vertex vertex;
-	vertex.Position = position;
+	vertex.Position = position;;
 	shapeVertices.push_back(vertex);
 }
 

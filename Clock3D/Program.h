@@ -13,6 +13,7 @@
 // Tools
 #include "Camera.h"
 #include "Renderer.h"
+#include "Light.h"
 
 class Program
 {

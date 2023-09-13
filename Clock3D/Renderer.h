@@ -9,6 +9,7 @@
 
 struct Vertex {
     glm::vec3 Position;
+    glm::vec3 Normals;
 };
 
 class Renderer {
@@ -17,6 +18,7 @@ public:
 
     void Render();
     void AddShape(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+    void SetupMesh();
 
     ~Renderer();
 

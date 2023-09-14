@@ -114,7 +114,10 @@ void Program::SetTime()
 	std::tm timeinfo {};
 	localtime_s(&timeinfo, &currentTime);
 
-	seconds = static_cast<float>(timeinfo.tm_sec);
-	minutes = static_cast<float>(timeinfo.tm_min);
-	hours = static_cast<float>(timeinfo.tm_hour);
+	int lastSec = seconds;
+	seconds = static_cast<int>(timeinfo.tm_sec);
+	if (lastSec < seconds) PlaySound(TEXT("../sounds/tick.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
+	minutes = static_cast<int>(timeinfo.tm_min);
+	hours = static_cast<int>(timeinfo.tm_hour);
 }

@@ -3,6 +3,9 @@
 
 // Std
 #include <iostream>
+#include <windows.h>
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 
 // Objects
 #include "Shape.h"
@@ -46,7 +49,7 @@ private:
 
 	// hands, time
 	float yAxisStep = 30.0f, handStep = 360.0f / 60.0f, hourStep = 360.0f / 12.0f;
-	float seconds, minutes, hours;
+	int seconds, minutes, hours;
 
 	// view/projection transformations
 	glm::mat4 projection;

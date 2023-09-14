@@ -80,7 +80,7 @@ void Cylinder::SetShape()
 // generate a unit circle on XY-plane
 std::vector<glm::vec3> Cylinder::getUnitCircleVertices()
 {
-    const float PI = 3.1415926f;
+    const float PI = 3.14f;
     float sectorStep = 2 * PI / sectorsNum;
     float sectorAngle;
 

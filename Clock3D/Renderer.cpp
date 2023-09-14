@@ -60,33 +60,28 @@ void Renderer::AddShape(std::vector<Vertex> vertices, std::vector<unsigned int> 
 
 void Renderer::SetupMesh()
 {
-    if (vertices.size() % 3 != 0) {
-        for (int i = 0; i < vertices.size() - 1; i += 3)
-        {
-            // edges
-            glm::vec3 v1 = vertices[i + 1].Position - vertices[i].Position;
-            glm::vec3 v2 = vertices[i + 2].Position - vertices[i].Position;
-            glm::vec3 normal = glm::normalize(glm::cross(v1, v2));
+    std::vector<glm::vec3> vertexNormals(vertices.size(), glm::vec3(0.0f));
 
-            // normals
-            vertices[i].Normals = normal;
-            vertices[i + 1].Normals = normal;
-            vertices[i + 2].Normals = normal;
-        }
+    for (int i = 0; i < indices.size(); i += 3)
+    {
+        int index1 = indices[i];
+        int index2 = indices[i + 1];
+        int index3 = indices[i + 2];
+
+        glm::vec3 v1 = vertices[index1].Position;
+        glm::vec3 v2 = vertices[index2].Position;
+        glm::vec3 v3 = vertices[index3].Position;
+
+        glm::vec3 normal = glm::normalize(glm::cross(v2 - v1, v3 - v1));
+
+        vertexNormals[index1] += normal;
+        vertexNormals[index2] += normal;
+        vertexNormals[index3] += normal;
     }
-    else {
-        for (int i = 0; i < vertices.size(); i += 3)
-        {
-            // edges
-            glm::vec3 v1 = vertices[i + 1].Position - vertices[i].Position;
-            glm::vec3 v2 = vertices[i + 2].Position - vertices[i].Position;
-            glm::vec3 normal = glm::normalize(glm::cross(v1, v2));
 
-            // normals
-            vertices[i].Normals = normal;
-            vertices[i + 1].Normals = normal;
-            vertices[i + 2].Normals = normal;
-        }
+    for (int i = 0; i < vertices.size(); ++i)
+    {
+        vertices[i].Normals = glm::normalize(vertexNormals[i]);
     }
 }
 

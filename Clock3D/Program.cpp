@@ -18,7 +18,7 @@ void Program::Init()
 {
 	// init render tools
 	shapeShader.LoadShader("vShader.vx", "fShader.ft");
-	light.SetPosition(glm::vec3(2.0f, 0.0f, 1.0f));
+	light.SetPosition(glm::vec3(1.5f, 0.5f, 2.5f));
 
 	// init matrices
 	projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 2000.0f);

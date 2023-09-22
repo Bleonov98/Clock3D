@@ -55,6 +55,8 @@ private:
 	glm::mat4 projection;
 	glm::mat4 view;
 
+	~Program();
+
 };
 
 #endif // !PROGRAM_H

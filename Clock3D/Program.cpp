@@ -1,9 +1,10 @@
 #include "Program.h"
 
+// tools
 Camera camera;
-
 Light light;
 
+// objects
 Cylinder* base;
 Cylinder* secondHand;
 Cylinder* minuteHand;
@@ -120,4 +121,17 @@ void Program::SetTime()
 
 	minutes = static_cast<int>(timeinfo.tm_min);
 	hours = static_cast<int>(timeinfo.tm_hour);
+}
+
+Program::~Program()
+{
+	delete base;
+	delete secondHand;
+	delete minuteHand;
+	delete hourHand;
+
+	delete twelve;
+	delete three;
+	delete six;
+	delete nine;
 }

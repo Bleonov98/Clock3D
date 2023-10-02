@@ -39,6 +39,8 @@ public:
 	bool Keys[1024], KeysProcessed[1024];
 	float yAxisGeneral = 0.0f;
 
+	~Program();
+
 private:
 
 	// objects
@@ -54,9 +56,6 @@ private:
 	// view/projection transformations
 	glm::mat4 projection;
 	glm::mat4 view;
-
-	~Program();
-
 };
 
 #endif // !PROGRAM_H
